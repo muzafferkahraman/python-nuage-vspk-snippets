@@ -9,7 +9,7 @@ GUI Enterprise Checker with Selenium
 ####################################################
 
 #!/usr/bin/env python3
-from property_parser import credentials
+from property_parser import Credentials
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait 
@@ -41,25 +41,16 @@ def web():
 
 
 
-class enterprise:
 
-    def __init__(self,name):
-        global org
-        self.name=name      
-        org = vsdk.NUEnterprise(name=self.name)
-       
-    def create(self):
-        nc.user.create_child(org)
-                
 if __name__=="__main__":
     
     today = date.today()
-    logfile = "/var/log/"+str(today) + "_vsd_performance_checker.log"
+    logfile = "/var/log/{}_vsd_performance_checker.log".format(str(today))
     logging.basicConfig(filename=logfile,level=logging.INFO,format='%(asctime)s %(levelname)s  %(message)s')
     logging.info("GUI Enterprise Checker Started")
 
     # Let's parse the config file using the credentials class
-    creds=credentials("credential.properties")
+    creds=Credentials("credential.properties")
 
     web()
     driver.get(creds.get_url())
@@ -95,7 +86,7 @@ if __name__=="__main__":
             B.append(s)
     
     if len(B) == 10:
-        logging.info('GUI Enterprises are Verifed to Created Correctly in Number')
+        logging.info('BINGO! ** GUI Enterprises are Verifed to be Created Correctly in Number **')
 
     inputElement = driver.find_element_by_xpath("//img[@alt='logout']")
     inputElement.click()    
