@@ -1,0 +1,57 @@
+import requests
+import json
+import base64
+import urllib3
+urllib3.disable_warnings()
+
+
+
+url="https://135.228.6.121/nuage/api/v5_0/me"
+headers = {'X-Nuage-Organization':"csp",'Authorization':"XREST Y3Nwcm9vdDpjc3Byb290"}
+res = requests.get(url, headers=headers,  verify=False)
+token=res.json()[0]["APIKey"]
+
+message = "csproot:"+token
+message_bytes = message.encode('ascii')
+base64_bytes = base64.b64encode(message_bytes)
+base64_message = base64_bytes.decode('ascii')
+
+'''
+data={}
+data['name'] = "muzo"
+data['enterpriseProfileID']="d7939e80-7fb4-11ed-a038-4d6d86f4dbb7"
+data["localAS"]="65000"
+
+url="https://135.228.6.121/nuage/api/v5_0/enterprises"
+headers = {'X-Nuage-Organization':"csp",'Authorization':"XREST " + base64_message}
+res=requests.post(url, headers=headers,json=data,  verify=False)
+print(res.json())
+'''
+
+
+url="https://135.228.6.121/nuage/api/v5_0/enterprises"
+headers = {'X-Nuage-Organization':"csp",'Authorization':"XREST " + base64_message}
+res=requests.get(url, headers=headers,  verify=False)
+enterprises=res.json()
+for item in enterprises:
+  if item["name"] == "muzo":
+    id=item["ID"]
+    print(id)
+'''
+data={}
+data['name'] = "muzo105"
+url="https://135.228.6.121/nuage/api/v5_0/enterprises/"+id
+headers = {'X-Nuage-Organization':"csp",'Authorization':"XREST " + base64_message}
+res=requests.put(url,headers=headers, json=data,  verify=False)
+result=str(res)
+print(result[11:14])
+'''
+
+data={}
+data['name'] = "muzo"
+data['ID']=id
+url="https://135.228.6.121/nuage/api/v5_0/enterprises/"+id+"/?responseChoice=1"
+headers = {'X-Nuage-Organization':"csp",'Authorization':"XREST " + base64_message}
+res=requests.delete(url, headers=headers,  verify=False);
+result=str(res)
+print(result[11:14])
