@@ -6,7 +6,7 @@
 #
 # Required  : [Python requests,json, base64, urllib3]
 #
-# Muzaffer Kahraman (Muzo)
+# @author Muzaffer Kahraman (Muzo)
 #
 # *********************************************************************************
 
