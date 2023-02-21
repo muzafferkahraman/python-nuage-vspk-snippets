@@ -1,8 +1,45 @@
+#!/usr/bin/python3
+
+# *********************************************************************************
+#
+# Nuage VSD Provisioning PoC
+#
+# Required  : [Python requests,json, base64, urllib3]
+#
+# Muzo
+#
+# *********************************************************************************
+
 import requests
 import json
 import base64
 import urllib3
+
+# Prevent Warning Messages for Certificates, to be displayed
 urllib3.disable_warnings()
+
+# Get Global Vars
+globalVarsFileName = "globalvars.csv"
+
+try:
+  f = open(globalVarsFileName,"r")
+except FileNotFoundError:
+  print("globalvars.csv not found!\n")
+  
+s=f.readline()
+print(s)
+s = [s.strip() for s in content]
+print(s)
+
+
+'''
+userName=
+passWord=
+enterprise=
+url=
+
+
+
 
 
 
@@ -55,3 +92,4 @@ headers = {'X-Nuage-Organization':"csp",'Authorization':"XREST " + base64_messag
 res=requests.delete(url, headers=headers,  verify=False);
 result=str(res)
 print(result[11:14])
+'''
